@@ -23,6 +23,9 @@ Image validation - POST: http://localhost:3001/api/image/validate
 ```
 Get processing status on the queue - GET localhost:3001/api/assets?id=<asset-id>
 ```
+# Architecture
+![alt text](https://github.com/ovictormacedo/image-validator/blob/master/architecture.png?raw=true)
+
 # Manually testing the system
 #### Start the application through docker compose
 ```
