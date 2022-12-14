@@ -7,8 +7,8 @@ services:
     image: web
     container_name: web
     ports:
-      - 3001:3001
-    command: gunicorn --bind 0.0.0.0:3001 main:main_app --workers 4
+      - ${APPLICATION_PORT}:${APPLICATION_PORT}
+    command: gunicorn --bind 0.0.0.0:${APPLICATION_PORT} main:main_app --workers 4
     volumes:
       - .:/usr/src/app
     environment:

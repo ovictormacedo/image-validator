@@ -2,10 +2,10 @@ import pytest
 import requests
 import time
 import redis
-from settings import REDIS_PORT
+from settings import REDIS_PORT, APPLICATION_PORT
 
 def test_system_happy_path():
-    response = requests.post("http://localhost:3001/api/image/validate", json={
+    response = requests.post(f"http://localhost:{APPLICATION_PORT}/api/image/validate", json={
         "assetPath": { 
             "location": "local",
             "path": "./files/valid-image.jpg"
@@ -28,7 +28,7 @@ def test_system_happy_path():
     assert "succeeded" in log_file[-2]
 
 def test_system_invalid_notification_url():
-    response = requests.post("http://localhost:3001/api/image/validate", json={
+    response = requests.post(f"http://localhost:{APPLICATION_PORT}/api/image/validate", json={
         "assetPath": { 
             "location": "local",
             "path": "./files/valid-image.jpg"
@@ -48,7 +48,7 @@ def test_get_image_processing_status():
 
         redis_utility.set("1", "complete", ex=3)
 
-        response = requests.get("http://localhost:3001/api/assets?id=1")
+        response = requests.get(f"http://localhost:{APPLICATION_PORT}/api/assets?id=1")
 
         assert response.status_code == 200
         assert response.text == "complete"
@@ -56,7 +56,7 @@ def test_get_image_processing_status():
         # Test expiration
         time.sleep(4)
 
-        response = requests.get("http://localhost:3001/api/assets?id=1")
+        response = requests.get(f"http://localhost:{APPLICATION_PORT}/api/assets?id=1")
 
         assert response.status_code == 204
 

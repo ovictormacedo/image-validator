@@ -8,7 +8,8 @@ test:
 
 test-e2e:
 	docker-compose down
-	docker-compose up -d --build --force-recreate
+	docker-compose kill # Just to make sure it's stopped :)
+	docker-compose --env-file .env up -d --build --force-recreate
 	pytest tests/E2E/validate_system_test.py -s
 server:
-	docker-compose up -d --build
+	docker-compose --env-file .env up -d --build

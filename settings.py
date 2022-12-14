@@ -1,5 +1,10 @@
-# Redis expiration time in seconds
-REDIS_EXPIRATION_TIME=3600
-REDIS_HOST="redis"
-REDIS_PORT=6379
-CELERY_URL="redis://localhost:6379/0"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+REDIS_EXPIRATION_TIME=int(os.getenv("REDIS_EXPIRATION_TIME"))
+REDIS_HOST=os.getenv("REDIS_HOST")
+REDIS_PORT=os.getenv("REDIS_PORT")
+CELERY_URL=os.getenv("CELERY_URL")
+APPLICATION_PORT=os.getenv("APPLICATION_PORT")
